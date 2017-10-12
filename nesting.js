@@ -38,8 +38,26 @@ var employees = [{
 
 // Code here
 
+//this code is right and works in every compiler i've tried except for the test specs and I cannot figure out why.
 
+const employeeUpdater =  () => {
+  employees = employees.filter((x) => x.firstName !== 'Theo');
+  employees.forEach((x) => x.firstName === 'Lorie' ? x.department = 'HR':x.department);
+  return employees;
+}
 
+//   for (var i = 0; i < array.length; i++) {
+//     if (array[i].firstName == 'Theo') {
+//       employees.splice(i,1);
+//       i--;
+//     }
+//     if (array[i].firstName == 'Lorie') {
+//       array[i].department = 'HR';
+//     }
+//   }
+//   return array;
+// }
+// employeeUpdater(employees);
 
 
 
@@ -47,7 +65,8 @@ var employees = [{
 // === PROBLEM 2 ==========
 
 
-// The array below represents IDs tied to reported workplace accidents. An employee accidentally entered in duplicates to array, making it look as though there are more accidents this year than there actually are. 
+// The array below represents IDs tied to reported workplace accidents. 
+//An employee accidentally entered in duplicates to array, making it look as though there are more accidents this year than there actually are. 
 // 1. Write a function called 'removeDuplicates' that will remove all duplicate entries in the workplaceAccidents array.
 // 2. Use nested for loops to check for duplicate numbers, and then remove the duplicates from the array.
 // 3. Return the updated array.
@@ -56,7 +75,17 @@ var workplaceAccidents = [12, 56, 44, 3, 29, 56, 56, 3, 7, 12];
 
 // Code here
 
-
+var removeDuplicates = (arr) => {
+  for (var i = 0; i<arr.length; i++){
+    for (var k = i+1; k<arr.length; k++) {
+      if (arr[k] == arr[i]){
+        arr.splice(k,1);
+        i--
+      }
+    }
+  }
+  return arr;
+}
 
 
 
@@ -84,8 +113,10 @@ var cat = {
 
 // Code here
 
-var grumpyActivity;
-var fluffy2ndFriend;
+
+
+var grumpyActivity = cat.catFriends[0].activities[1];
+var fluffy2ndFriend = cat.catFriends[1].name;
 
 
 
@@ -123,7 +154,15 @@ var myCar = {
 }
 
 // Code here
+var recordCleaner = (arr) => {
 
+  arr = myCar.accidents;
+  for(var i = 0; i<arr.length; i++) {
+    arr[i].atFaultForAccident = false;
+  }
+  return arr;
+
+}
 
 
 
@@ -142,7 +181,18 @@ var myCar = {
 // 4. Return the modified numsArr.
 
 var numsArr = [ [1, 2, 3, 4], [5, 6], [7, 8, 9, 10, 11]];
-
-
-
+var looper = () => {
+  for (var i = 0; i<numsArr.length; i++){
+    
+    for (var k = 0; k < numsArr[i].length; k++){
+      if (numsArr[i][k] % 2 === 0) {
+        numsArr[i][k] = 'even';
+      }
+      else {
+        numsArr[i][k] = 'odd';
+      }
+    }
+  }
+  return numsArr;
+};
 

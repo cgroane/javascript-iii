@@ -21,8 +21,20 @@ Each employee can:
 
 call your class Employee and receive all the data in the constructor in the order listed
 */
-
-
+class Employee {
+    constructor(first_name, last_name, email, age) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.age = age;        
+    }
+    makeWidget() {
+        return `${this.first_name} ${this.last_name} Widget`;
+    }
+}
+// var user1 = new Employee('Dan', 'Smith','dansmith@email.com', 30);
+// console.log(user1);
+// console.log(user1.makeWidget());
 
 /*
 
@@ -40,6 +52,28 @@ They can (methods) :
 call your class Manager
 
 */
+class Manager extends Employee {
+    constructor(first_name, last_name, email, age) {
+        super(first_name, last_name, email, age)
+        this.reports = []; 
+        
+        }
+        hire (emp) {
+            this.reports.push(emp);
+        }
+        fire (index){
+            var fireCount;
+            fireCount += 1;
+            this.reports.splice(index, 1);
+            return fireCount;
+    }
+}
+
+var manager1 = new Manager ('Connor','Roane','connorroane@email.com', 23);
+console.log(manager1);
+//console.log(manager1.hire(user1));
+console.log(typeof manager1);
+
 
 
 
@@ -65,7 +99,55 @@ Everytime they fire an employee they get $100 added to their bonus.
 call your class ProgressiveManager
 */
 
+class ProgressiveManager extends Manager {
 
+    constructor (first_name, last_name, email, age) {
+
+        super(first_name, last_name, email, age)
+        this.title = 'Not a manager';
+        this.bonus = 0;
+
+    }
+    
+    updateBonus(fire) {
+
+        this.bonus += 100*fireCount;
+    }
+    updateTitle() {
+        if (this.reports.length > 100) {
+            this.title = "Bestest Manager"
+        }
+        else if (this.reports.length > 50) {
+            this.title = "Manager Plus";
+        }
+        else if (this.reports.length > 10) {
+            this.title = "Manager";
+        }
+        else if (this.reports.length > 4) {
+            this.title = "Mostly Manager";
+        }
+        else if (this.reports.length > 0){
+            this.title = "Barely Manager";
+        }
+        else {
+            this.title = "Not a manager";
+        }
+       
+    }
+    hire (emp) {
+        
+        this.reports.push(emp);
+        this.updateTitle();
+    }
+    fire (index){
+
+        this.reports.splice(index, 1);
+        this.bonus += 100;
+        this.updateTitle();
+
+    }
+
+}
 
 
 /*
@@ -90,3 +172,36 @@ It can :
       It should set decrease wear_and_tear_count by 10, and set needs_reboot to false
 
 */
+class Machine {
+    constructor(widgets_made_count, wear_and_tear_count,needs_reboot) {
+        this.widgets_made_count = 0;
+        this.wear_and_tear_count = 0;
+        this.needs_reboot = false;
+    }
+    makeWidgets(num) {
+        this.widgets_made_count += num;
+        this.wear_and_tear_count += (num/50);
+        // if(this.widgets_made_count >= 50 && this.widgets_made_count % 50 === 0) {
+        //     this.wear_and_tear_count += ((this.widgets_made_count)/50);
+        // }
+    }
+    fixMachine(){
+        this.needs_reboot = true;
+    }
+    reboot(){
+        
+            this.wear_and_tear_count -= 10;
+            this.needs_reboot = false;
+            return function doneRebooting(){
+                
+            };
+    }   
+}
+var machine1 = new Machine();
+console.log(machine1);
+machine1.makeWidgets(100);
+console.log(machine1);
+machine1.fixMachine();
+console.log(machine1);
+machine1.reboot();
+console.log(machine1);
